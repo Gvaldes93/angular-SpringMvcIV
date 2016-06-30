@@ -53,5 +53,21 @@ public class BookService {
 	public void setBooks(ArrayList<Book> books) {
 		this.books = books;
 	}
+
+
+
+	public void updateBook(Book book) {
+
+		Book bookToRemove=null;
+		
+		for (Book bookInLoop : books) {
+			if (bookInLoop.getIsbn()==book.getIsbn()){
+				bookToRemove=bookInLoop;
+			}
+		}
+		
+		books.remove(bookToRemove);
+		books.add(book);
+	}
 	
 }

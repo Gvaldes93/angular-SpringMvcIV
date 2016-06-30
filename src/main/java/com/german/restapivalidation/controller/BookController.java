@@ -41,5 +41,17 @@ public class BookController {
 	@RequestMapping( method = RequestMethod.GET, produces="application/json")
 	public List<Book> getBooks() {	return bookService.getBooks(); 	}
 	
+	
+	
+	@RequestMapping(method=RequestMethod.PUT)
+	public ResponseEntity<Book> updateBook(@RequestBody @Valid Book book, BindingResult result){
+		if (result.hasErrors()){
+			return new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
+		}
+		
+		bookService.updateBook(book);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	 
 }
