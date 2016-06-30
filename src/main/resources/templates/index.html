@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="books">
+<head>
+
+   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta charset="UTF-8" />
+	<title>Book information</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css"/>
+</head>
+
+<body  class="container" ng-controller="BookController" ng-init="getBooks()">
+
+	<div class="container-fluid" ng-show="books != null" >
+
+		<h2> Books in Store</h2>
+		<div  class="row" ng-repeat="book in books" style="margin: 1em;  border:1px solid gray; ">
+
+
+			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-left">
+
+				<div class="gallery" ng-show="book.images.length">
+
+									{{imageShown(book.images[0])}}
+									<img class="img img-circle img-thumbnail center-block" ng-src="{{imageURL}}" />
+									<ul class="clearfix pull-right">
+				          	<li class="small-image pull-left thumbnail" ng-repeat="image in book.images track by $index"  >
+
+											<img ng-src="{{image}}" style="width:70px;"  />
+										 	<button  class="btn" ng-click="imageShown(image)"> See </button>
+										</li>
+				      		</ul>
+        		</div>
+			</div>
+
+			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"  >
+			 	<ul  class="list-group" style="padding:5px 0;">
+					<li    class="list-group-item"><h4><strong>Title:</strong> {{book.title}}</h4></li>
+					<li   class="list-group-item"><h4><strong>Year:</strong>{{book.year}} </h4></li>
+					<li   class="list-group-item"><h4><strong>ISBN Number:</strong>{{book.isbn}} </h4></li>
+				</ul>
+	  	</div>
+
+
+		</div>
+	</div>
+
+
+	<div class="form">
+		<label for="isbn">ISBN:</label>
+		<input id="isbn" ng-model="isbn" type="number" />
+
+		<label for="title">Title:</label>
+		<input id="title" ng-model="title" type="text" />
+
+		<label for="year">Year:</label>
+		<input id="year" ng-model="year" type="number" />
+
+		<label for="image">Image Url:</label>
+		<input id="imageURLToAdd" ng-model="imageURLToAdd" type="text" />
+
+		<div ng-repeat="image in images">
+			 <a   ng-click="removeImage(image)">X </a> <p> {{image}}  </p>
+		</div>
+		<button id="addImage" class="btn" ng-click="addImage(imageURLToAdd)">Add Image URL</button>
+
+		<button id="addBtn" class="btn" ng-click="addBook()">Add Book</button>
+	</div>
+
+
+	<h4>{{msg}}</h4>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-resource.js"></script>
+	<script src="./js/app.js"></script>
+
+
+</body>
+</html>
